@@ -14,19 +14,23 @@ function Box({ children }) {
 
 export default Box;
 
-export function MovieList({ movies }) {
+export function MovieList({ movies, setSelectedId }) {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies?.map((movie) => (
-        <Movie movie={movie} key={movie.imdbID} />
+        <Movie movie={movie} key={movie.imdbID} setSelectedId={setSelectedId} />
       ))}
     </ul>
   );
 }
 
-function Movie({ movie }) {
+function Movie({ movie, setSelectedId }) {
   return (
-    <li>
+    <li
+      onClick={() =>
+        setSelectedId((id) => (id === movie.imdbID ? null : movie.imdbID))
+      }
+    >
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
